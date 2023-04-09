@@ -53,7 +53,10 @@ const usePokemon = () => {
       signal: controller.signal,
     })
       .then((res) => res.json())
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        if (err.message === "The user aborted a request.") return;
+        setError(err.message);
+      });
 
     return data;
   };
@@ -64,7 +67,10 @@ const usePokemon = () => {
   ): Promise<Pokemon> => {
     const data = await fetch(url, { signal: controller.signal })
       .then((res) => res.json())
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        if (err.message === "The user aborted a request.") return;
+        setError(err.message);
+      });
     return data;
   };
 

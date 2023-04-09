@@ -1,10 +1,7 @@
-import { Grid, GridItem, Show, Text } from "@chakra-ui/react";
-import PokemonCard from "./components/PokemonCard";
-import usePokemon from "./hooks/usePokemon";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
+import PokemonGrid from "./components/PokemonGrid";
 
 function App() {
-  const { pokemon, error } = usePokemon();
-
   return (
     <Grid
       templateAreas={{
@@ -12,19 +9,12 @@ function App() {
         lg: `"nav nav" "sidebar main"`,
       }}
     >
-      <GridItem area="nav" bg="orange">
-        Nav
-      </GridItem>
+      <GridItem area="nav">Nav</GridItem>
       <Show above="lg">
-        <GridItem area="sidebar" bg="tomato">
-          Sidebar
-        </GridItem>
+        <GridItem area="sidebar">Sidebar</GridItem>
       </Show>
-      <GridItem area="main" bg="papayawhip">
-        {error.length !== 0 && <Text>{error}</Text>}
-        {pokemon.map((p) => (
-          <PokemonCard key={p.id} pokemon={p} />
-        ))}
+      <GridItem area="main">
+        <PokemonGrid />
       </GridItem>
     </Grid>
   );
