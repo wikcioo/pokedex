@@ -3,7 +3,7 @@ import usePokemon from "../hooks/usePokemon";
 import PokemonCard from "./PokemonCard";
 
 const PokemonGrid = () => {
-  const { pokemon, error } = usePokemon();
+  const { data: pokemon, error } = usePokemon();
 
   return (
     <>
