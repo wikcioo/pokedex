@@ -1,19 +1,35 @@
-import { Text } from "@chakra-ui/react";
-import useTypes from "../hooks/useTypes";
+import { Button, List, ListItem } from "@chakra-ui/react";
+import { Type } from "../models/Type";
+import { useEffect, useState } from "react";
+import fetchTypes from "../services/fetchTypes";
 
-const PokemonTypeList = () => {
-  const { data: types, error } = useTypes();
+interface Props {
+  onSelectType: (type: Type) => void;
+}
+
+const PokemonTypeList = ({ onSelectType }: Props) => {
+  const [types, setTypes] = useState<Type[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const types = await fetchTypes();
+      setTypes(types);
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <>
-      {error && <Text>{error}</Text>}
-      <ul>
+      <List>
         {types
-          .filter((t) => t.name !== "unknown" && t.name !== "shadow")
-          .map((t) => (
-            <li key={t.id}>{t.name}</li>
+          .filter((type) => type.name !== "unknown" && type.name !== "shadow")
+          .map((type) => (
+            <ListItem key={type.id}>
+              <Button onClick={() => onSelectType(type)}>{type.name}</Button>
+            </ListItem>
           ))}
-      </ul>
+      </List>
     </>
   );
 };
