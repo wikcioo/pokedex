@@ -1,4 +1,13 @@
-import { Button, List, ListItem } from "@chakra-ui/react";
+import {
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  Flex,
+  VStack,
+} from "@chakra-ui/react";
 import { Type } from "../models/Type";
 import { useEffect, useState } from "react";
 import fetchTypes from "../services/fetchTypes";
@@ -21,15 +30,31 @@ const PokemonTypeList = ({ onSelectType }: Props) => {
 
   return (
     <>
-      <List>
-        {types
-          .filter((type) => type.name !== "unknown" && type.name !== "shadow")
-          .map((type) => (
-            <ListItem key={type.id}>
-              <Button onClick={() => onSelectType(type)}>{type.name}</Button>
-            </ListItem>
-          ))}
-      </List>
+      <AccordionItem>
+        <h2>
+          <AccordionButton>
+            <Box as="span" flex="1" textAlign="left">
+              Type
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+        </h2>
+        <AccordionPanel>
+          <Flex justifyContent="flex-start">
+            <VStack>
+              {types
+                .filter(
+                  (type) => type.name !== "unknown" && type.name !== "shadow"
+                )
+                .map((type) => (
+                  <Button key={type.id} onClick={() => onSelectType(type)}>
+                    {type.name}
+                  </Button>
+                ))}
+            </VStack>
+          </Flex>
+        </AccordionPanel>
+      </AccordionItem>
     </>
   );
 };
