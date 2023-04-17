@@ -18,6 +18,7 @@ interface Props {
 
 const PokemonTypeList = ({ onSelectType }: Props) => {
   const [types, setTypes] = useState<Type[]>([]);
+  const [selectedType, setSelectedType] = useState<Type | null>();
 
   useEffect(() => {
     async function fetchData() {
@@ -47,7 +48,16 @@ const PokemonTypeList = ({ onSelectType }: Props) => {
                   (type) => type.name !== "unknown" && type.name !== "shadow"
                 )
                 .map((type) => (
-                  <Button key={type.id} onClick={() => onSelectType(type)}>
+                  <Button
+                    key={type.id}
+                    size="sm"
+                    variant="link"
+                    colorScheme={selectedType === type ? "green" : ""}
+                    onClick={() => {
+                      setSelectedType(type);
+                      onSelectType(type);
+                    }}
+                  >
                     {type.name}
                   </Button>
                 ))}
