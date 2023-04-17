@@ -3,6 +3,7 @@ import PokemonGrid from "./components/PokemonGrid";
 import PokemonTypeList from "./components/PokemonTypeList";
 import { useState } from "react";
 import { Type } from "./models/Type";
+import Filter from "./components/Filter";
 
 function App() {
   const [selectedType, setSelectedType] = useState<Type | null>(null);
@@ -17,7 +18,7 @@ function App() {
       <GridItem area="nav">Nav</GridItem>
       <Show above="lg">
         <GridItem area="sidebar">
-          <PokemonTypeList onSelectType={setSelectedType} />
+          <Filter onSelectType={setSelectedType} />
         </GridItem>
       </Show>
       <GridItem area="main">
