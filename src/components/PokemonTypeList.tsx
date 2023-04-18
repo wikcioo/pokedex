@@ -6,11 +6,14 @@ import {
   Box,
   Button,
   Flex,
+  HStack,
+  Image,
   VStack,
 } from "@chakra-ui/react";
 import { Type } from "../models/Type";
 import { useEffect, useState } from "react";
 import fetchTypes from "../services/fetchTypes";
+import typeToIcon from "../utils/typeToIcon";
 
 interface Props {
   onSelectType: (type: Type) => void;
@@ -42,24 +45,26 @@ const PokemonTypeList = ({ onSelectType }: Props) => {
         </h2>
         <AccordionPanel>
           <Flex justifyContent="flex-start">
-            <VStack>
+            <VStack align="left">
               {types
                 .filter(
                   (type) => type.name !== "unknown" && type.name !== "shadow"
                 )
                 .map((type) => (
-                  <Button
-                    key={type.id}
-                    size="sm"
-                    variant="link"
-                    colorScheme={selectedType === type ? "green" : ""}
-                    onClick={() => {
-                      setSelectedType(type);
-                      onSelectType(type);
-                    }}
-                  >
-                    {type.name}
-                  </Button>
+                  <HStack key={type.id}>
+                    <Button
+                      size="m"
+                      variant="link"
+                      colorScheme={selectedType === type ? "green" : ""}
+                      onClick={() => {
+                        setSelectedType(type);
+                        onSelectType(type);
+                      }}
+                    >
+                      <Image boxSize={10} src={typeToIcon[type.name]} />
+                      {type.name}
+                    </Button>
+                  </HStack>
                 ))}
             </VStack>
           </Flex>
