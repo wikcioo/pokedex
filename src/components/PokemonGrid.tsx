@@ -1,4 +1,4 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import PokemonCard from "./PokemonCard";
 import { useEffect, useState } from "react";
 import fetchPokemon from "../services/fetchPokemon";
@@ -7,28 +7,32 @@ import { Pokemon } from "../models/Pokemon";
 import fetchTypes from "../services/fetchTypes";
 
 interface Props {
+  offset: number;
+  limit: number;
   selectedType: Type | null;
 }
 
-const PokemonGrid = ({ selectedType }: Props) => {
+const PokemonGrid = ({ offset, limit, selectedType }: Props) => {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       if (selectedType === null) {
-        const result = await fetchPokemon();
+        const result = await fetchPokemon({ offset, limit });
         setPokemon(result);
       } else {
         const type = await fetchTypes([selectedType.name]);
         let names: string[] = [];
-        type[0].pokemon.forEach((p) => names.push(p.pokemon.name));
-        const result = await fetchPokemon(names);
+        type[0].pokemon
+          .slice(offset, offset + limit)
+          .forEach((p) => names.push(p.pokemon.name));
+        const result = await fetchPokemon({ names });
         setPokemon(result);
       }
     }
 
     fetchData();
-  }, [selectedType]);
+  }, [selectedType, offset, limit]);
 
   return (
     <>

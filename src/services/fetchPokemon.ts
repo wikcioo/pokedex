@@ -3,7 +3,17 @@ import apiClient from "./api-client";
 import fetchGenericApiResponse from "./fetchGenericResult";
 import { Pokemon } from "../models/Pokemon";
 
-const fetchPokemon = async (names?: string[]): Promise<Array<Pokemon>> => {
+interface Props {
+  offset?: number;
+  limit?: number;
+  names?: string[];
+}
+
+const fetchPokemon = async ({
+  offset,
+  limit,
+  names,
+}: Props): Promise<Array<Pokemon>> => {
   if (names !== undefined) {
     const requests = names.map((name) =>
       apiClient.get<Pokemon>("/pokemon/" + name)
@@ -14,7 +24,9 @@ const fetchPokemon = async (names?: string[]): Promise<Array<Pokemon>> => {
     const data = responses.map((response) => response.data);
     return data;
   } else {
-    const res = await fetchGenericApiResponse("/pokemon");
+    const res = await fetchGenericApiResponse(
+      "/pokemon?offset=" + offset + "&limit=" + limit
+    );
     const requests = res.data.results.map((result) =>
       apiClient.get<Pokemon>(result.url)
     );

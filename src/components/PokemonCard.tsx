@@ -1,5 +1,5 @@
 import { Card, CardBody, Heading, Image } from "@chakra-ui/react";
-import { Pokemon } from "../hooks/usePokemon";
+import { Pokemon } from "../models/Pokemon";
 
 interface Props {
   pokemon: Pokemon;

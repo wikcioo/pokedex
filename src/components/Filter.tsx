@@ -1,4 +1,4 @@
-import { Accordion, Box } from "@chakra-ui/react";
+import { Accordion } from "@chakra-ui/react";
 import PokemonTypeList from "./PokemonTypeList";
 import { Type } from "../models/Type";
 
