@@ -5,6 +5,7 @@ import { Type } from "./models/Type";
 import Filter from "./components/Filter";
 import PaginationButtons from "./components/PaginationButtons";
 import fetchGenericApiResponse from "./services/fetchGenericResult";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [selectedType, setSelectedType] = useState<Type | null>(null);
@@ -27,7 +28,9 @@ function App() {
         lg: `"nav nav" "sidebar main"`,
       }}
     >
-      <GridItem area="nav">Nav</GridItem>
+      <GridItem area="nav">
+        <NavBar />
+      </GridItem>
       <Show above="lg">
         <GridItem area="sidebar">
           <Filter
