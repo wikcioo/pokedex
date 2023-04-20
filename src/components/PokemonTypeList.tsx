@@ -13,7 +13,6 @@ import {
 import { Type } from "../models/Type";
 import { useEffect, useState } from "react";
 import fetchTypes from "../services/fetchTypes";
-import typeToIcon from "../utils/typeToIcon";
 
 interface Props {
   onSelectType: (type: Type) => void;
@@ -61,7 +60,13 @@ const PokemonTypeList = ({ onSelectType }: Props) => {
                         onSelectType(type);
                       }}
                     >
-                      <Image boxSize={10} src={typeToIcon[type.name]} />
+                      <Image
+                        boxSize={8}
+                        mr={1}
+                        src={
+                          "src/assets/img/pokemonTypes/" + type.name + ".webp"
+                        }
+                      />
                       {type.name}
                     </Button>
                   </HStack>
