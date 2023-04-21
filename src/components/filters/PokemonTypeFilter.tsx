@@ -10,16 +10,16 @@ import {
   Image,
   VStack,
 } from "@chakra-ui/react";
-import { Type } from "../models/Type";
+import { Type } from "../../models/Type";
 import { useEffect, useState } from "react";
-import fetchTypes from "../services/fetchTypes";
-import { pokemonTypeImages } from "../assets/img/pokemonTypes/pokemonTypeImages";
+import fetchTypes from "../../services/fetchTypes";
+import { pokemonTypeImages } from "../../assets/img/pokemonTypes/pokemonTypeImages";
 
 interface Props {
   onSelectType: (type: Type) => void;
 }
 
-const PokemonTypeList = ({ onSelectType }: Props) => {
+const PokemonTypeFilter = ({ onSelectType }: Props) => {
   const [types, setTypes] = useState<Type[]>([]);
   const [selectedType, setSelectedType] = useState<Type | null>();
 
@@ -78,4 +78,4 @@ const PokemonTypeList = ({ onSelectType }: Props) => {
   );
 };
 
-export default PokemonTypeList;
+export default PokemonTypeFilter;

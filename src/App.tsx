@@ -2,7 +2,7 @@ import { Grid, GridItem, Show } from "@chakra-ui/react";
 import PokemonGrid from "./components/PokemonGrid";
 import { useEffect, useState } from "react";
 import { Type } from "./models/Type";
-import Filter from "./components/Filter";
+import Filter from "./components/filters/Filter";
 import PaginationButtons from "./components/PaginationButtons";
 import { fetchGenericApiResponse } from "./services/fetchGenericResult";
 import NavBar from "./components/NavBar";
