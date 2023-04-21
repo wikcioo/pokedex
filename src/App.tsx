@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Type } from "./models/Type";
 import Filter from "./components/Filter";
 import PaginationButtons from "./components/PaginationButtons";
-import fetchGenericApiResponse from "./services/fetchGenericResult";
+import { fetchGenericApiResponse } from "./services/fetchGenericResult";
 import NavBar from "./components/NavBar";
 
 function App() {

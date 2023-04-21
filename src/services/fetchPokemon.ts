@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import apiClient from "./api-client";
-import fetchGenericApiResponse from "./fetchGenericResult";
 import { Pokemon } from "../models/Pokemon";
+import { fetchGenericApiResponse } from "./fetchGenericResult";
 
 interface Props {
   offset?: number;

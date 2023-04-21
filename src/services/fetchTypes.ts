@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { Type } from "../models/Type";
 import apiClient from "./api-client";
-import fetchGenericApiResponse from "./fetchGenericResult";
+import { fetchGenericApiResponse } from "./fetchGenericResult";
 
 const fetchTypes = async (names?: string[]): Promise<Array<Type>> => {
   if (names !== undefined) {

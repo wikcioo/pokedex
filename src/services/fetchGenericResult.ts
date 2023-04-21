@@ -13,7 +13,7 @@ export interface GenericApiResponse {
   ];
 }
 
-const fetchGenericApiResponse = (
+export const fetchGenericApiResponse = async (
   endpoint: string,
   controller?: AbortController
 ): Promise<AxiosResponse<GenericApiResponse>> => {
@@ -22,4 +22,12 @@ const fetchGenericApiResponse = (
   });
 };
 
-export default fetchGenericApiResponse;
+export const fetchGenericApiResponseCountOfResults = async (
+  endpoint: string,
+  controller?: AbortController
+) => {
+  let result = await apiClient.get<GenericApiResponse>(endpoint, {
+    signal: controller?.signal,
+  });
+  return result.data.count;
+};
