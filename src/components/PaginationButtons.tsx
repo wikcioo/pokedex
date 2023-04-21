@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 
 interface Props {
   isPrevBtnVisible: boolean;
@@ -14,14 +14,14 @@ const PaginationButtons = ({
   onNextClick,
 }: Props) => {
   return (
-    <>
-      {isPrevBtnVisible && (
-        <Button onClick={onPrevClick} mr="5px">
-          Previous
-        </Button>
-      )}
-      {isNextBtnVisible && <Button onClick={onNextClick}>Next</Button>}
-    </>
+    <Box padding="10px">
+      <Button onClick={onPrevClick} mr="5px" isDisabled={!isPrevBtnVisible}>
+        Previous
+      </Button>
+      <Button onClick={onNextClick} isDisabled={!isNextBtnVisible}>
+        Next
+      </Button>
+    </Box>
   );
 };
 
