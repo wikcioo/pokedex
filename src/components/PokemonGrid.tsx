@@ -5,6 +5,7 @@ import fetchPokemon from "../services/fetchPokemon";
 import { Type } from "../models/Type";
 import { Pokemon } from "../models/Pokemon";
 import fetchTypes from "../services/fetchTypes";
+import SkeletonCard from "./SkeletonCard";
 
 interface Props {
   offset: number;
@@ -14,12 +15,15 @@ interface Props {
 
 const PokemonGrid = ({ offset, limit, selectedType }: Props) => {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true);
       if (selectedType === null) {
         const result = await fetchPokemon({ offset, limit });
         setPokemon(result);
+        setIsLoading(false);
       } else {
         const type = await fetchTypes([selectedType.name]);
         let names: string[] = [];
@@ -28,6 +32,7 @@ const PokemonGrid = ({ offset, limit, selectedType }: Props) => {
           .forEach((p) => names.push(p.pokemon.name));
         const result = await fetchPokemon({ names });
         setPokemon(result);
+        setIsLoading(false);
       }
     }
 
@@ -41,9 +46,12 @@ const PokemonGrid = ({ offset, limit, selectedType }: Props) => {
         padding="10px"
         spacing={2}
       >
-        {pokemon.map((p) => (
-          <PokemonCard key={p.id} pokemon={p} />
-        ))}
+        {isLoading &&
+          Array.from({ length: limit }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        {!isLoading &&
+          pokemon.map((p) => <PokemonCard key={p.id} pokemon={p} />)}
       </SimpleGrid>
     </>
   );
