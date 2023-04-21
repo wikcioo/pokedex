@@ -8,11 +8,15 @@ import {
 import { useState } from "react";
 
 interface Props {
+  initialCount: number;
   onDisplayCountChange: (count: number) => void;
 }
 
-const PokemonDisplayCountFilter = ({ onDisplayCountChange }: Props) => {
-  const [currentCount, setCurrentCount] = useState<number>(20);
+const PokemonDisplayCountFilter = ({
+  initialCount,
+  onDisplayCountChange,
+}: Props) => {
+  const [currentCount, setCurrentCount] = useState<number>(initialCount);
   const maxCount = 200;
 
   return (
@@ -20,7 +24,7 @@ const PokemonDisplayCountFilter = ({ onDisplayCountChange }: Props) => {
       <Text>Display count: {currentCount}</Text>
       <Slider
         aria-label="slider-ex-1"
-        defaultValue={30}
+        defaultValue={initialCount}
         min={1}
         max={maxCount}
         onChange={(value) => setCurrentCount(value)}

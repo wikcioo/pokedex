@@ -10,7 +10,7 @@ import NavBar from "./components/NavBar";
 function App() {
   const [selectedType, setSelectedType] = useState<Type | null>(null);
   const [offset, setOffset] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(20);
+  const [limit, setLimit] = useState<number>(30);
   const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ function App() {
       <Show above="lg">
         <GridItem area="sidebar">
           <Filter
+            initialDisplayCount={limit}
             onDisplayCountChange={(count) => {
               setLimit(count);
             }}

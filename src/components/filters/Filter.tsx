@@ -4,16 +4,22 @@ import { Type } from "../../models/Type";
 import PokemonDisplayCountFilter from "./PokemonDisplayCountFilter";
 
 interface Props {
+  initialDisplayCount: number;
   onDisplayCountChange: (count: number) => void;
   onSelectType: (type: Type) => void;
 }
 
-const Filter = ({ onDisplayCountChange, onSelectType }: Props) => {
+const Filter = ({
+  initialDisplayCount,
+  onDisplayCountChange,
+  onSelectType,
+}: Props) => {
   return (
     <Box>
       <Text>Filters</Text>
       <Box m={2}>
         <PokemonDisplayCountFilter
+          initialCount={initialDisplayCount}
           onDisplayCountChange={onDisplayCountChange}
         />
       </Box>
