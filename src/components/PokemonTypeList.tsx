@@ -13,6 +13,7 @@ import {
 import { Type } from "../models/Type";
 import { useEffect, useState } from "react";
 import fetchTypes from "../services/fetchTypes";
+import { pokemonTypeImages } from "../assets/img/pokemonTypes/pokemonTypeImages";
 
 interface Props {
   onSelectType: (type: Type) => void;
@@ -63,9 +64,7 @@ const PokemonTypeList = ({ onSelectType }: Props) => {
                       <Image
                         boxSize={8}
                         mr={1}
-                        src={
-                          "src/assets/img/pokemonTypes/" + type.name + ".webp"
-                        }
+                        src={pokemonTypeImages[type.name]}
                       />
                       {type.name}
                     </Button>
