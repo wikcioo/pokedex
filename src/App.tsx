@@ -34,6 +34,9 @@ function App() {
       <Show above="lg">
         <GridItem area="sidebar">
           <Filter
+            onDisplayCountChange={(count) => {
+              setLimit(count);
+            }}
             onSelectType={(type) => {
               setTotal(type.pokemon.length);
               setOffset(0);

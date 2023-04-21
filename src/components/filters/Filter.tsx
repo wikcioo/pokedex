@@ -1,19 +1,26 @@
-import { Accordion, Text } from "@chakra-ui/react";
+import { Accordion, Box, Text } from "@chakra-ui/react";
 import PokemonTypeFilter from "./PokemonTypeFilter";
 import { Type } from "../../models/Type";
+import PokemonDisplayCountFilter from "./PokemonDisplayCountFilter";
 
 interface Props {
+  onDisplayCountChange: (count: number) => void;
   onSelectType: (type: Type) => void;
 }
 
-const Filter = ({ onSelectType }: Props) => {
+const Filter = ({ onDisplayCountChange, onSelectType }: Props) => {
   return (
-    <>
+    <Box>
       <Text>Filters</Text>
-      <Accordion allowMultiple>
+      <Box m={2}>
+        <PokemonDisplayCountFilter
+          onDisplayCountChange={onDisplayCountChange}
+        />
+      </Box>
+      <Accordion allowMultiple m={2}>
         <PokemonTypeFilter onSelectType={onSelectType} />
       </Accordion>
-    </>
+    </Box>
   );
 };
 
