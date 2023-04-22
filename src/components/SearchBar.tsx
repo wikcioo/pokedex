@@ -7,16 +7,22 @@ import {
   List,
   ListItem,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   fetchGenericApiResponse,
   fetchGenericApiResponseCountOfResults,
 } from "../services/fetchGenericResult";
+import PokemonModal from "./PokemonModal";
+import fetchPokemon from "../services/fetchPokemon";
+import { Pokemon } from "../models/Pokemon";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [searchedPokemon, setSearchedPokemon] = useState<Pokemon>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const listRef = useRef<HTMLDivElement>(null);
   const searchBarRef = useRef<HTMLInputElement>(null);
   const listItemBg = useColorModeValue("white", "gray.800");
@@ -40,9 +46,12 @@ const SearchBar = () => {
     );
   };
 
-  const handleSearchResultClick = (item: string) => {
+  const handleSearchResultClick = async (item: string) => {
+    setSearchedPokemon(undefined);
     setSearchTerm(item);
     setSearchResults([]);
+    const pokemon = (await fetchPokemon({ names: [item] }))[0];
+    setSearchedPokemon(pokemon);
   };
 
   const handleClickOutsideSearchResult = (event: MouseEvent) => {
@@ -76,12 +85,21 @@ const SearchBar = () => {
           ref={searchBarRef}
         />
       </InputGroup>
+      {searchedPokemon !== undefined && (
+        <PokemonModal
+          isOpen={isOpen}
+          onClose={onClose}
+          pokemon={searchedPokemon}
+        />
+      )}
       {searchResults.length > 0 && (
         <Box
           position="absolute"
           top="50px"
           left="0px"
           zIndex="10"
+          border="1px solid gray"
+          borderRadius="md"
           maxHeight="400px"
           overflowY="auto"
           ref={listRef}
@@ -92,12 +110,13 @@ const SearchBar = () => {
                 key={result}
                 p="2"
                 bg={listItemBg}
-                border="1px solid gray"
-                borderRadius="md"
                 _hover={{ bg: listItemHoverBg }}
                 width="300px"
                 cursor="pointer"
-                onClick={(event) => handleSearchResultClick(result)}
+                onClick={() => {
+                  handleSearchResultClick(result);
+                  onOpen();
+                }}
               >
                 <ListItem>{result}</ListItem>
               </Box>
