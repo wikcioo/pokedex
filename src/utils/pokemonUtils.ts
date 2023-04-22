@@ -43,17 +43,15 @@ export function getStatNameColorScheme(statName: string): string {
 }
 
 export function getPokemonTypeColorMix(types: string[]): string {
-  const typeColors: string[] = [];
-  types.forEach((type) => {
-    typeColors.push(getPokemonTypeColor(type));
-  });
-
-  let combinedColor = "#FFFFFF";
-  typeColors.forEach((typeColor) => {
-    combinedColor = blendColors(combinedColor, typeColor);
-  });
-
-  return combinedColor;
+  if (types.length === 1) {
+    return getPokemonTypeColor(types[0]);
+  } else {
+    return blendColorsBiased(
+      getPokemonTypeColor(types[0]),
+      getPokemonTypeColor(types[1]),
+      0.75
+    );
+  }
 }
 
 export function getPokemonTypeColor(type: string): string {
@@ -99,13 +97,17 @@ export function getPokemonTypeColor(type: string): string {
   }
 }
 
-function blendColors(color1: string, color2: string): string {
-  const c1 = hexToRgb(color1);
-  const c2 = hexToRgb(color2);
+function blendColorsBiased(
+  primary: string,
+  secondary: string,
+  ratio: number
+): string {
+  const c1 = hexToRgb(primary);
+  const c2 = hexToRgb(secondary);
 
-  const r = Math.round((c1.r + c2.r) / 2);
-  const g = Math.round((c1.g + c2.g) / 2);
-  const b = Math.round((c1.b + c2.b) / 2);
+  const r = Math.round(c1.r * ratio + c2.r * (1 - ratio));
+  const g = Math.round(c1.g * ratio + c2.g * (1 - ratio));
+  const b = Math.round(c1.b * ratio + c2.b * (1 - ratio));
 
   return rgbToHex(r, g, b);
 }
