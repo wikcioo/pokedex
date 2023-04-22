@@ -1,10 +1,14 @@
-import { Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import SearchBar from "./SearchBar";
+import Logo from "./Logo";
 
 const NavBar = () => {
   return (
     <Box m={3}>
-      <SearchBar />
+      <HStack>
+        <Logo />
+        <SearchBar />
+      </HStack>
     </Box>
   );
 };
