@@ -3,6 +3,7 @@ import {
   CardBody,
   Heading,
   Image,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { Pokemon } from "../models/Pokemon";
@@ -24,9 +25,12 @@ const PokemonCard = ({ pokemon }: Props) => {
       cursor="pointer"
     >
       <PokemonModal isOpen={isOpen} onClose={onClose} pokemon={pokemon} />
-      <Image src={pokemon.sprites.front_default} boxSize={75} />
+      <Image src={pokemon.sprites.front_default} boxSize={100} />
       <CardBody>
         <Heading>{pokemon.name}</Heading>
+        <Text mt={3} align="center">
+          #{pokemon.id.toString().padStart(4, "0")}
+        </Text>
       </CardBody>
     </Card>
   );
