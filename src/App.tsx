@@ -5,7 +5,7 @@ import { Type } from "./models/Type";
 import Filter from "./components/filters/Filter";
 import PaginationButtons from "./components/PaginationButtons";
 import { fetchGenericApiResponse } from "./services/fetchGenericResult";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/navbar/NavBar";
 
 function App() {
   const [selectedType, setSelectedType] = useState<Type | null>(null);

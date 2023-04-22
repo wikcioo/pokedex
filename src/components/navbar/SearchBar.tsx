@@ -13,10 +13,10 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   fetchGenericApiResponse,
   fetchGenericApiResponseCountOfResults,
-} from "../services/fetchGenericResult";
-import PokemonModal from "./PokemonModal";
-import fetchPokemon from "../services/fetchPokemon";
-import { Pokemon } from "../models/Pokemon";
+} from "../../services/fetchGenericResult";
+import PokemonModal from "../PokemonModal";
+import fetchPokemon from "../../services/fetchPokemon";
+import { Pokemon } from "../../models/Pokemon";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
