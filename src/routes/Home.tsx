@@ -28,6 +28,7 @@ const Home = () => {
         base: `"nav" "main"`,
         lg: `"nav nav" "sidebar main"`,
       }}
+      templateColumns={{ lg: "15%" }}
     >
       <GridItem area="nav">
         <NavBar />

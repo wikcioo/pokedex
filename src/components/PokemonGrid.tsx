@@ -41,11 +41,7 @@ const PokemonGrid = ({ offset, limit, selectedType }: Props) => {
 
   return (
     <>
-      <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
-        padding="10px"
-        spacing={2}
-      >
+      <SimpleGrid minChildWidth="230px" gap={5} pr={8} pl={5}>
         {isLoading &&
           Array.from({ length: limit }).map((_, index) => (
             <SkeletonCard key={index} />
