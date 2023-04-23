@@ -38,6 +38,7 @@ const Home = () => {
           <Filter
             initialDisplayCount={limit}
             onDisplayCountChange={(count) => {
+              setOffset(0);
               setLimit(count);
             }}
             onSelectType={(type) => {
